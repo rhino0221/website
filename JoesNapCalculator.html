@@ -65,7 +65,7 @@
 	const actualRunTime24hr = effectiveTime24hr/60;
 	const actualRunTime30hr = effectiveTime30hr/60;
 		
-	document.getElementById('naptime').textContent = `You'll spend a total of ${totalNapTime} minutes napping. That's ${totalNapTimeHours} hours!`;
+	document.getElementById('naptime').textContent = `You'll spend a total of ${totalNapTime} minutes napping. That's ${totalNapTimeHours.toFixed(1)} hours!`;
         document.getElementById('pace24hr').textContent = `Pace to finish in 24 hours: ${paceMinutes24hr}:${paceSeconds24hr} minutes/mile. You'll actually be running for ${actualRunTime24hr.toFixed(1)} hours.`;
         document.getElementById('pace30hr').textContent = `Pace to finish in 30 hours: ${paceMinutes30hr}:${paceSeconds30hr} minutes/mile. You'll actually be running for ${actualRunTime30hr.toFixed(1)} hours.`;
 		
