@@ -10,6 +10,7 @@
 <h1>Joe's Western States Nap Calculator</h1>
 <p>There are a total of 20 aid stations where you can take a nap.</p>
 <form id="raceCalculator">
+<h1>How fast does Joe have to run to get all of his naps in?</h1>
     <label for="totalNaps">Total Naps:</label>
     <input type="number" id="totalNaps" name="totalNaps" required><br><br>
 
@@ -25,7 +26,20 @@
 	<p id="pace24hr"></p>
     <p id="pace30hr"></p>
 	</div>
+<!-- Second Calculator -->
+<form id="paceCalculator">
+    <label for="desiredPace">Desired Pace (mm:ss):</label>
+    <input type="text" id="desiredPace" name="desiredPace" pattern="[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" required><br><br>
 
+    <button type="submit">Calculate Nap Time</button>
+</form>
+
+<!-- Results for Second Calculator -->
+<div id="resultsSecond">
+    <h2>Results</h2>
+	<p id="maxNapTime24hr"></p>
+    <p id="maxNapTime30hr"></p>
+</div>
 <script>
     document.getElementById('raceCalculator').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -49,10 +63,29 @@
         const paceMinutes30hr = Math.floor(pace30hr);
         const paceSeconds30hr = Math.round((pace30hr % 1) * 60);
 		
-		document.getElementById('naptime').textContent = `You'll spend a total of ${totalNapTime} minutes napping. That's ${totalNapTimeHours} hours!`;
+	document.getElementById('naptime').textContent = `You'll spend a total of ${totalNapTime} minutes napping. That's ${totalNapTimeHours} hours!`;
         document.getElementById('pace24hr').textContent = `Pace to finish in 24 hours: ${paceMinutes24hr}:${paceSeconds24hr} minutes/mile. You'll actually be running for ${effectiveTime24hr/60} hours.`;
         document.getElementById('pace30hr').textContent = `Pace to finish in 30 hours: ${paceMinutes30hr}:${paceSeconds30hr} minutes/mile. You'll actually be running for ${effectiveTime30hr/60} hours.`;
 		
+    });
+	document.getElementById('paceCalculator').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const desiredPace = document.getElementById('desiredPace').value.split(':');
+        const desiredMinutes = parseInt(desiredPace[0]);
+        const desiredSeconds = parseInt(desiredPace[1]);
+
+        const desiredPaceTotal = desiredMinutes + (desiredSeconds/60); 
+		const totalRaceTimeMinutes30hr = 24 * 60; // Convert 24 hours to minutes
+        const totalRaceTimeMinutes30hr = 30 * 60; // Convert 30 hours to minutes
+
+
+        // Calculate max nap time
+        const maxNapTime24hr = totalRaceTimeMinutes24hr - (desiredPaceTotal * 100.2);
+	const maxNapTime30hr = totalRaceTimeMinutes30hr - (desiredPaceTotal * 100.2);
+		
+	document.getElementById('maxNapTime24hr').textContent = `Max Nap Time to finish in 24 hours: ${maxNapTime24hr} minutes`;
+        document.getElementById('maxNapTime30hr').textContent = `Max Nap Time to finish in 30 hours: ${maxNapTime30hr} minutes`;
     });
 </script>
 
