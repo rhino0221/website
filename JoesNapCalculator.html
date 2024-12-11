@@ -61,13 +61,43 @@
             background-color: #004494;
         }
 
-        h2 {
+        h2.results {
             text-align: center;
             margin: 20px 0 10px;
+            display: none; /* Hide results header by default */
         }
 
-        p {
+        .results {
+            text-align: center;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .results p {
             margin: 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+		#maxNapTime30hr {
+			text-align: center; /* Centers the text */
+			margin: 10px 0; /* Add spacing above and below */
+			font-weight: bold; /* Optional: make it stand out */
+		}
+
+        .no-naps {
+            color: red;
+            font-weight: bold;
+			text-align: center;
+            margin-top: 20px;
+        }
+
+        .no-naps img {
+            max-width: 300px;
+			height: auto;
+            margin-top: 10px;
+			display: inline-block;
         }
 
     </style>
@@ -106,6 +136,7 @@
     <h2>Results</h2>
 	<p id="maxNapTime24hr"></p>
     <p id="maxNapTime30hr"></p>
+	<div class="no-naps" id="noNapsImage"></div>
 </div>
 <script>
     document.getElementById('raceCalculator').addEventListener('submit', function(e) {
@@ -152,6 +183,32 @@
         // Calculate max nap time
         const maxNapTime24hr = totalRaceTimeMinutes24hr - (desiredPaceTotal * 100.2);
 	const maxNapTime30hr = totalRaceTimeMinutes30hr - (desiredPaceTotal * 100.2);
+
+	const resultContainer = document.getElementById('resultsSecond');
+	const noNapsContainer = document.getElementById('noNapsImage');
+		
+	noNapsContainer.innerHTML = "";
+
+	if (maxNapTime24hr <= 0 && maxNapTime30hr <= 0) { 
+            document.getElementById('maxNapTime30hr').textContent = "No naps for you!";
+            const img = document.createElement('img');
+            img.src = 'https://github.com/rhino0221/website/blob/main/NoNapsforYou.jpg?raw=true'; // Replace with your own image URL
+            document.getElementById('noNapsImage').appendChild(img);
+	} else if (maxNapTime24hr <= 0) {
+		document.getElementById('maxNapTime30hr').textContent = `No naps for the 24-hour finish! But for a 30-hour finish, you can nap for ${(maxNapTime30hr).toFixed(0)} minutes`;
+		const img = document.createElement('img');
+            img.src = 'https://github.com/rhino0221/website/blob/main/NoNapsforYou.jpg?raw=true'; // Replace with your own image URL
+            document.getElementById('noNapsImage').appendChild(img);
+    	} else if (maxNapTime30hr <= 0) {
+       		document.getElementById('maxNapTime30hr').textContent = `No naps for the 30-hour finish! But for a 24-hour finish, you can nap for ${(maxNapTime24hr).toFixed(0)} minutes.`;
+		const img = document.createElement('img');
+            img.src = 'https://github.com/rhino0221/website/blob/main/NoNapsforYou.jpg?raw=true'; // Replace with your own image URL
+            document.getElementById('noNapsImage').appendChild(img);
+    	} else {
+        	document.getElementById('maxNapTime30hr').textContent = `For a 24-hour finish, you can nap for ${(maxNapTime24hr).toFixed(0)} minutes. For a 30-hour finish, you can nap for ${(maxNapTime30hr).toFixed(0)} minutes`;
+    	}
+		
+		
 		
 	document.getElementById('maxNapTime24hr').textContent = `Max Nap Time to finish in 24 hours: ${maxNapTime24hr.toFixed(0)} minutes`;
         document.getElementById('maxNapTime30hr').textContent = `Max Nap Time to finish in 30 hours: ${maxNapTime30hr.toFixed(0)} minutes`;
