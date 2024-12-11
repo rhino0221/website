@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe's Western States Nap Calculator</title>
+</head>
+<body>
+
+<h1>Joe's Western States Nap Calculator</h1>
+<p>There are a total of 20 aid stations to nap at.</p>
+<form id="raceCalculator">
+    <label for="totalNaps">Total Naps:</label>
+    <input type="number" id="totalNaps" name="totalNaps" required><br><br>
+
+    <label for="timePerNap">Time per Nap (minutes):</label>
+    <input type="number" id="timePerNap" name="timePerNap" required><br><br>
+
+    <button type="submit">Calculate</button>
+</form>
+
+<div id="results">
+    <h2>Results</h2>
+    <p id="naptime"></p>
+	<p id="pace24hr"></p>
+    <p id="pace30hr"></p>
+	</div>
+
+<script>
+    document.getElementById('raceCalculator').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const totalNaps = parseFloat(document.getElementById('totalNaps').value);
+        const timePerNap = parseFloat(document.getElementById('timePerNap').value);
+
+        const totalNapTime = totalNaps * timePerNap;
+		const totalNapTimeHours = totalNapTime / 60;
+        const totalRaceTimeMinutes24hr = 24 * 60; // Convert 24 hours to minutes
+		const totalRaceTimeMinutes30hr = 30 * 60; // Convert 30 hours to minutes
+        const effectiveTime24hr = totalRaceTimeMinutes24hr - totalNapTime;
+		const effectiveTime30hr = totalRaceTimeMinutes30hr - totalNapTime;
+
+        const pace24hr = (effectiveTime24hr / 100.2).toFixed(2);
+        const pace30hr = (effectiveTime30hr / 100.2).toFixed(2);
+		
+		// Calculate pace
+        const paceMinutes24hr = Math.floor(pace24hr);
+        const paceSeconds24hr = Math.round((pace24hr % 1) * 60);
+        const paceMinutes30hr = Math.floor(pace30hr);
+        const paceSeconds30hr = Math.round((pace30hr % 1) * 60);
+		
+		document.getElementById('naptime').textContent = `You'll spend a total of ${totalNapTime} minutes napping. That's ${totalNapTimeHours} hours!`;
+        document.getElementById('pace24hr').textContent = `Pace to finish in 24 hours: ${paceMinutes24hr}:${paceSeconds24hr} minutes/mile. You'll actually be running for ${effectiveTime24hr/60} hours.`;
+        document.getElementById('pace30hr').textContent = `Pace to finish in 30 hours: ${paceMinutes30hr}:${paceSeconds30hr} minutes/mile. You'll actually be running for ${effectiveTime30hr/60} hours.`;
+		
+    });
+</script>
+
+</body>
+</html>
