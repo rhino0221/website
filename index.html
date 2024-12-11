@@ -8,6 +8,22 @@
         body {
             text-align: center;
         }
+        #generated-numbers {
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        #generated-numbers h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -20,10 +36,43 @@
 
             const randomNumberButton = document.getElementById('random-number-button');
             const randomNumberOutput = document.getElementById('random-number-output');
+            const generatedNumbersList = document.getElementById('generated-numbers');
+
+            const generatedNumbers = new Set(); // Store generated numbers to avoid duplicates
+
+            const heading = document.createElement('h2');
+            heading.textContent = "So far you've had to run:";
+            generatedNumbersList.appendChild(heading);
+
+            const encouragements = [
+                "You're doing fantastic!",
+                "Keep it up, champ!",
+                "You're so amazing!",
+                "Every step counts!",
+                "You're unstoppable!",
+                "Great job so far!",
+                "Keep smashing those goals!"
+            ];
 
             randomNumberButton.addEventListener('click', () => {
-                const randomNumber = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
-                randomNumberOutput.textContent = `Random Number: ${randomNumber}`;
+                let randomNumber;
+                do {
+                    randomNumber = Math.floor(Math.random() * 28) + 1; // Random number between 1 and 28
+                } while (generatedNumbers.has(randomNumber));
+
+                generatedNumbers.add(randomNumber);
+
+                const randomEncouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
+                randomNumberOutput.textContent = `You need to run ${randomNumber}km. ${randomEncouragement}`;
+
+                const numberItem = document.createElement('div');
+                numberItem.textContent = `${randomNumber} km`;
+                generatedNumbersList.appendChild(numberItem);
+
+                if (generatedNumbers.size === 28) {
+                    randomNumberButton.disabled = true;
+                    randomNumberOutput.textContent += " - All numbers have been generated!";
+                }
             });
         });
     </script>
@@ -33,5 +82,6 @@
     <p id="dynamic-message">Come back on January 31st to see what's in store!</p>
     <button id="random-number-button">Generate Random Number</button>
     <p id="random-number-output"></p>
+    <div id="generated-numbers"></div>
 </body>
 </html>
