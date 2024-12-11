@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric February</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const targetDate = new Date(today.getFullYear(), 0, 31); // January 31st
+            const message = today >= targetDate
+                ? "Welcome to Metric February!"
+                : "Come back on January 31st to see what's in store!";
+            document.getElementById('dynamic-message').textContent = message;
+        });
+    </script>
+</head>
+<body>
+    <h1>Metric February - Randomized Masochist Edition</h1>
+    <p id="dynamic-message">Come back on January 31st to see what's in store!</p>
+</body>
+</html>
