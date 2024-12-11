@@ -176,16 +176,16 @@
         const desiredSeconds = parseInt(desiredPace[1]);
 
         const desiredPaceTotal = desiredMinutes + (desiredSeconds/60); 
-	const totalRaceTimeMinutes24hr = 24 * 60; // Convert 24 hours to minutes
+		const totalRaceTimeMinutes24hr = 24 * 60; // Convert 24 hours to minutes
         const totalRaceTimeMinutes30hr = 30 * 60; // Convert 30 hours to minutes
 
 
         // Calculate max nap time
         const maxNapTime24hr = totalRaceTimeMinutes24hr - (desiredPaceTotal * 100.2);
-	const maxNapTime30hr = totalRaceTimeMinutes30hr - (desiredPaceTotal * 100.2);
+		const maxNapTime30hr = totalRaceTimeMinutes30hr - (desiredPaceTotal * 100.2);
 
-	const resultContainer = document.getElementById('resultsSecond');
-	const noNapsContainer = document.getElementById('noNapsImage');
+		const resultContainer = document.getElementById('resultsSecond');
+		const noNapsContainer = document.getElementById('noNapsImage');
 		
 	noNapsContainer.innerHTML = "";
 
@@ -207,11 +207,6 @@
     	} else {
         	document.getElementById('maxNapTime30hr').textContent = `For a 24-hour finish, you can nap for ${(maxNapTime24hr).toFixed(0)} minutes. For a 30-hour finish, you can nap for ${(maxNapTime30hr).toFixed(0)} minutes`;
     	}
-		
-		
-		
-	document.getElementById('maxNapTime24hr').textContent = `Max Nap Time to finish in 24 hours: ${maxNapTime24hr.toFixed(0)} minutes`;
-        document.getElementById('maxNapTime30hr').textContent = `Max Nap Time to finish in 30 hours: ${maxNapTime30hr.toFixed(0)} minutes`;
     });
 </script>
 
