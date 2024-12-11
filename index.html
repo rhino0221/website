@@ -17,11 +17,21 @@
                 ? "Welcome to Metric February!"
                 : "Come back on January 31st to see what's in store!";
             document.getElementById('dynamic-message').textContent = message;
+
+            const randomNumberButton = document.getElementById('random-number-button');
+            const randomNumberOutput = document.getElementById('random-number-output');
+
+            randomNumberButton.addEventListener('click', () => {
+                const randomNumber = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
+                randomNumberOutput.textContent = `Random Number: ${randomNumber}`;
+            });
         });
     </script>
 </head>
 <body>
     <h1>Metric February - Randomized Masochist Edition</h1>
     <p id="dynamic-message">Come back on January 31st to see what's in store!</p>
+    <button id="random-number-button">Generate Random Number</button>
+    <p id="random-number-output"></p>
 </body>
 </html>
