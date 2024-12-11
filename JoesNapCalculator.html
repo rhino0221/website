@@ -8,12 +8,11 @@
 <body>
 
 <h1>Joe's Western States Nap Calculator</h1>
-<p>There are a total of 20 aid stations where you can take a nap.</p>
+<h2>How fast does Joe have to run to get all of his naps in?</h2>
 <form id="raceCalculator">
-<h1>How fast does Joe have to run to get all of his naps in?</h1>
+<p>There are a total of 20 aid stations where you can take a nap.</p>
     <label for="totalNaps">Total Naps:</label>
     <input type="number" id="totalNaps" name="totalNaps" required><br><br>
-
     <label for="timePerNap">Time per Nap (minutes):</label>
     <input type="number" id="timePerNap" name="timePerNap" required><br><br>
 
@@ -28,6 +27,7 @@
 	</div>
 <!-- Second Calculator -->
 <form id="paceCalculator">
+	<h2>How much time can Joe spend napping?</h2>
     <label for="desiredPace">Desired Pace (mm:ss):</label>
     <input type="text" id="desiredPace" name="desiredPace" pattern="[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" required><br><br>
 
@@ -76,7 +76,7 @@
         const desiredSeconds = parseInt(desiredPace[1]);
 
         const desiredPaceTotal = desiredMinutes + (desiredSeconds/60); 
-		const totalRaceTimeMinutes30hr = 24 * 60; // Convert 24 hours to minutes
+	const totalRaceTimeMinutes24hr = 24 * 60; // Convert 24 hours to minutes
         const totalRaceTimeMinutes30hr = 30 * 60; // Convert 30 hours to minutes
 
 
